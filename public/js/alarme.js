@@ -7,8 +7,25 @@ function toggleDarkMode() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ===== MODO ESCURO =====
     if (localStorage.getItem('dark-mode') === 'true') {
         document.body.classList.add('dark-mode');
+    }
+
+    // ===== CHECAR LOGIN =====
+    const usuarioRaw = sessionStorage.getItem("usuario");
+    if (!usuarioRaw) {
+        // Nenhum usuário logado, volta pra login
+        window.location.href = "index.html";
+        return;
+    }
+
+    try {
+        JSON.parse(usuarioRaw); // só pra validar JSON
+    } catch (e) {
+        sessionStorage.removeItem("usuario");
+        window.location.href = "index.html";
+        return;
     }
 });
 
