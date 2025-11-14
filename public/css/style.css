@@ -1,0 +1,153 @@
+/* Reset e fonte moderna */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Container principal */
+  .acesso-container {
+    background: white;
+    padding: 30px;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  /* Título */
+  .titulo {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007BFF;
+  }
+  
+  /* Inputs */
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border 0.3s;
+    font-size: 15px;
+  }
+  
+  input:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  /* Botões */
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  
+  .btn {
+    
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-access {
+    background-color: #007BFF;
+    
+  }
+  
+  .btn-clear {
+    background-color: #17A2B8;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 480px) {
+    .acesso-container {
+      padding: 20px;
+      margin-top: 20px;
+    }
+  
+    .navbar {
+      font-size: 16px;
+      padding: 10px;
+    }
+  
+    .btn {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    input {
+      font-size: 14px;
+    }
+  }
+  
+  /* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode .navbar {
+  background-color: #1f1f1f;
+  color: #f0f0f0;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .acesso-container {
+  background: #1e1e1e;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .titulo {
+  color: #66b2ff;
+}
+
+body.dark-mode input {
+  background: #2c2c2c;
+  color: #f0f0f0;
+  border: 1px solid #444;
+}
+
+body.dark-mode input:focus {
+  border-color: #66b2ff;
+}
+
+body.dark-mode .btn-access {
+  background-color: #3399ff;
+}
+
+body.dark-mode .btn-clear {
+  background-color: #17A2B8;
+}
