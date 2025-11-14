@@ -13,13 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===============================
+// INICIALIZA EMAILJS
+// ===============================
+emailjs.init("Hx4D4KkKfCSUb_xQR"); // substitua pelo seu User ID do EmailJS
+
+// ===============================
 // FUNÇÃO PRINCIPAL DO BOTÃO DE PÂNICO
 // ===============================
 async function panico() {
 
     // ==== CARREGAR USUÁRIO ====
     const usuarioRaw = sessionStorage.getItem("usuario");
-
     if (!usuarioRaw) {
         alert("Usuário não logado!");
         window.location.href = "index.html";
@@ -57,7 +61,7 @@ async function panico() {
         // SALVAR NO BANCO (BACKEND)
         // ===============================
         try {
-            await fetch("http://localhost:3000/api/panico", {
+            await fetch("/api/panico", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -74,9 +78,26 @@ async function panico() {
         }
 
         // ===============================
-        // ENVIAR EMAIL VIA BACKEND
+        // ENVIAR EMAIL VIA EMAILJS (FRONTEND)
         // ===============================
-        await enviarEmail(usuario, lat, lon, endereco);
+        try {
+            const resultado = await emailjs.send(
+                'service_thylr79',   // Substitua pelo seu Service ID
+                'template_lkc1ooe',  // Substitua pelo seu Template ID
+                {
+                    cpf: usuario.cpf,
+                    chassi: usuario.chassi,
+                    linha: usuario.linha,
+                    latitude: lat,
+                    longitude: lon,
+                    endereco: endereco,
+                    message: "Alerta de pânico!"
+                }
+            );
+            console.log("EMAIL ENVIADO:", resultado.text);
+        } catch (e) {
+            console.error("Erro ao enviar email:", e);
+        }
 
         alert("Alerta de pânico enviado com sucesso!");
 
@@ -97,31 +118,5 @@ async function obterEndereco(lat, lon) {
         return data.display_name || "Endereço não encontrado";
     } catch (e) {
         return "Erro ao obter endereço";
-    }
-}
-
-// ===============================
-// ENVIAR EMAIL VIA BACKEND
-// ===============================
-async function enviarEmail(usuario, lat, lon, endereco) {
-    try {
-        const resposta = await fetch("http://localhost:3000/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                cpf: usuario.cpf,
-                chassi: usuario.chassi,
-                linha: usuario.linha,
-                latitude: lat,
-                longitude: lon,
-                endereco: endereco
-            })
-        });
-
-        const data = await resposta.json();
-        console.log("EMAIL:", data);
-
-    } catch (e) {
-        console.error("Erro ao enviar email:", e);
     }
 }

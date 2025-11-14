@@ -1,153 +1,94 @@
-/* Reset e fonte moderna */
-body {
+   RESET BÁSICO
+=============================== */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f4f7fc;
-    color: #333;
+}
+
+/* ===============================
+   FUNDO E CENTRO
+=============================== */
+body {
+    height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-  }
-  
-  /* Navbar */
-  .navbar {
-    background-color: #007BFF;
-    color: white;
-    padding: 15px 30px;
-    font-size: 20px;
-    width: 100%;
+    background: linear-gradient(135deg, #4a90e2, #50e3c2);
+}
+
+/* ===============================
+   BOX DE LOGIN
+=============================== */
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    width: 320px;
     text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Container principal */
-  .acesso-container {
-    background: white;
-    padding: 30px;
-    margin-top: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px;
-  }
-  
-  /* Título */
-  .titulo {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #007BFF;
-  }
-  
-  /* Inputs */
-  input {
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+}
+
+.login-box h2 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #333;
+}
+
+/* ===============================
+   INPUTS
+=============================== */
+.login-box input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0 20px;
-    border: 1px solid #ccc;
+    padding: 12px 15px;
+    margin: 10px 0;
     border-radius: 8px;
-    transition: border 0.3s;
-    font-size: 15px;
-  }
-  
-  input:focus {
-    border-color: #007BFF;
+    border: 1px solid #ccc;
     outline: none;
-  }
-  
-  /* Botões */
-  .buttons-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-  
-  .btn {
-    
-    flex: 1;
-    padding: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.login-box input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74,144,226,0.5);
+}
+
+/* ===============================
+   BOTÃO
+=============================== */
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    background: #4a90e2;
     color: white;
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .btn-access {
-    background-color: #007BFF;
-    
-  }
-  
-  .btn-clear {
-    background-color: #17A2B8;
-  }
-  
-  .btn:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  
-  /* Responsividade */
-  @media (max-width: 480px) {
-    .acesso-container {
-      padding: 20px;
-      margin-top: 20px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.login-box button:hover {
+    background: #357ab8;
+    transform: scale(1.03);
+}
+
+/* ===============================
+   RESPONSIVO
+=============================== */
+@media(max-width: 400px){
+    .login-box {
+        width: 90%;
+        padding: 30px 20px;
     }
-  
-    .navbar {
-      font-size: 16px;
-      padding: 10px;
-    }
-  
-    .btn {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    input {
-      font-size: 14px;
-    }
-  }
-  
-  /* Dark Mode */
-body.dark-mode {
-  background: #121212;
-  color: #f0f0f0;
-}
-
-body.dark-mode .navbar {
-  background-color: #1f1f1f;
-  color: #f0f0f0;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .acesso-container {
-  background: #1e1e1e;
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
-}
-
-body.dark-mode .titulo {
-  color: #66b2ff;
-}
-
-body.dark-mode input {
-  background: #2c2c2c;
-  color: #f0f0f0;
-  border: 1px solid #444;
-}
-
-body.dark-mode input:focus {
-  border-color: #66b2ff;
-}
-
-body.dark-mode .btn-access {
-  background-color: #3399ff;
-}
-
-body.dark-mode .btn-clear {
-  background-color: #17A2B8;
 }

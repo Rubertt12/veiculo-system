@@ -3,12 +3,16 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const db = require('./database');
+const seedDatabase = require('./seed'); // <-- importa o seed
 
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Seed automático
+seedDatabase();
 
 // Servir a pasta public
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -35,7 +39,6 @@ app.post('/api/login', (req, res) => {
 // Registrar pânico
 app.post('/api/panico', (req, res) => {
     const { cpf, chassi, linha, latitude, longitude, endereco } = req.body;
-
     const data_hora = new Date().toISOString();
 
     db.run(`
