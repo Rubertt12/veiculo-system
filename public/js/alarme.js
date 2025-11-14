@@ -1,30 +1,22 @@
-// Toggle modo escuro
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("dark-mode") === "true") {
-        document.body.classList.add("dark-mode");
-    }
+    emailjs.init("Hx4D4KkKfCSUb_xQR");
 });
 
-// FUNÇÃO PRINCIPAL DO BOTÃO DE PÂNICO
+// Dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Botão de pânico
 async function panico() {
     const usuario = JSON.parse(sessionStorage.getItem("usuario"));
     if (!usuario) {
-        alert("Usuário não logado!");
+        alert("Faça login novamente.");
         window.location.href = "index.html";
         return;
     }
 
-    if (!navigator.geolocation) {
-        alert("Geolocalização não suportada.");
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(async (pos) => {
+    navigator.geolocation.getCurrentPosition(async pos => {
         const lat = pos.coords.latitude.toFixed(6);
         const lon = pos.coords.longitude.toFixed(6);
 
@@ -34,7 +26,6 @@ async function panico() {
         const endereco = await obterEndereco(lat, lon);
         document.getElementById("endereco").value = endereco;
 
-        // SALVAR NO BANCO
         await fetch("http://localhost:3000/api/panico", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -48,51 +39,29 @@ async function panico() {
             })
         });
 
-        // ENVIAR E-MAIL (NOVO EmailJS)
-        await enviarEmail(usuario, lat, lon, endereco);
+        enviarEmail(usuario, lat, lon, endereco);
 
-        alert("Pânico enviado!");
+        alert("Alerta enviado!");
     });
 }
 
-// OBTER ENDEREÇO PELO OSM
 async function obterEndereco(lat, lon) {
-    try {
-        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
-        const j = await r.json();
-        return j.display_name || "Endereço não encontrado";
-    } catch {
-        return "Erro ao buscar endereço";
-    }
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.display_name || "Endereço não encontrado";
 }
 
-// ENVIAR EMAIL → via backend
-async function enviarEmail(usuario, lat, lon, endereco) {
-    try {
-        await fetch("http://localhost:3000/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                cpf: usuario.cpf,
-                chassi: usuario.chassi,
-                linha: usuario.linha,
-                latitude: lat,
-                longitude: lon,
-                endereco,
-                mensagem: `🚨 BOTÃO DE PÂNICO ACIONADO!
-CPF: ${usuario.cpf}
-Linha: ${usuario.linha}
-Chassi: ${usuario.chassi}
-Lat/Lon: ${lat}, ${lon}
-Endereço: ${endereco}`
-            })
-        });
-
-        console.log("E-mail enviado!");
-    } catch (err) {
-        console.error("Erro ao enviar e-mail:", err);
-    }
+function enviarEmail(usuario, lat, lon, endereco) {
+    emailjs.send("service_thylr79", "template_lkc1ooe", {
+        cpf: usuario.cpf,
+        chassi: usuario.chassi,
+        linha: usuario.linha,
+        latitude: lat,
+        longitude: lon,
+        endereco: endereco,
+        mensagem: `BOTÃO DE PÂNICO ATIVADO!\nLinha: ${usuario.linha}\nChassi: ${usuario.chassi}\nLocalização: ${lat}, ${lon}\nEndereço:\n${endereco}`
+    })
+    .then(() => console.log("Email enviado"))
+    .catch(err => console.error("Erro:", err));
 }
-document.addEventListener("DOMContentLoaded", () => {
-    emailjs.init("Hx4D4KkKfCSUb_xQR");
-});

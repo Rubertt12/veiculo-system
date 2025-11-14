@@ -1,45 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sistema de Segurança Veicular</title>
-<link rel="stylesheet" href="css/alarme.css" />
-
-<!-- SDK NOVO DO EMAILJS -->
-<script type="module">
-  import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-  emailjs.init("YOUR_PUBLIC_KEY");
-  window.emailjs = emailjs; // libera pro JS externo acessar
-</script>
-
+<meta charset="UTF-8">
+<title>Alarme - Segurança</title>
+<link rel="stylesheet" href="css/alarme.css">
 </head>
 <body>
+
 <nav class="navbar">
   <span class="navbar-title">Sistema de Segurança Veicular</span>
   <button onclick="toggleDarkMode()" class="btn-darkmode">🌙</button>
 </nav>
 
 <div class="container">
-  <div class="buttons-panic">
-    <button onclick="panico()" class="btn btn-panic">
-      <img src="img/botao.png" alt="Botão de Pânico" />
-    </button>
-  </div>
+  <button onclick="panico()" class="btn btn-panic">
+    <img src="img/botao.png" alt="Botão de Pânico">
+  </button>
 
-  <label>Endereço aproximado:</label>
-  <input type="text" id="endereco" readonly />
+  <label>Endereço:</label>
+  <input id="endereco" readonly>
 
   <label>Latitude:</label>
-  <input type="text" id="latitude" readonly />
+  <input id="latitude" readonly>
 
   <label>Longitude:</label>
-  <input type="text" id="longitude" readonly />
+  <input id="longitude" readonly>
 </div>
 
-<script src="js/alarme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
+<script src="js/alarme.js"></script>
 
 </body>
 </html>
